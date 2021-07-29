@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;800&family=Space+Mono&display=swap');
+/* html {
+    scroll-behavior: smooth;
+} */
+body {
+    font-family: 'Nanum Gothic', sans-serif;
+}
+a {
+    color: #222;
+}
+header {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    background-color: white;;
+}
+.start {
+    padding-top: 100px;
+}
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.nav a {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #222;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 2px;;
+}
+.block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px 0;
+    overflow: hidden;
+}
+.block-border {
+    margin: 30px 0;
+    border: 2px solid #222;
+}
+.button {
+    display: inline-block;
+    padding: 20px 60px;
+    background: none;
+    border: 3px solid #222;
+    border-radius: 6px;
+    color: #222;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 2px;;
+    cursor: pointer;
+}
+.point {
+    width: calc(100% - 80px);
+    min-height: 400px;
+    margin: 40px auto;
+    border: 2px dotted #222;
+    background-color: #eee;
+    color: #222;
+    overflow: hidden;
+}
+.space-h {
+    min-height: 300px;
+}
+.code {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    padding: 20px 30px;
+    background: #222;
+    color: white;
+    border-radius: 6px;
+    letter-spacing: 0;
+    color: rgb(158, 189, 102)
+}
+.code span {
+    color: #aaa;
+}
+.note {
+    padding: 80px  0 30px;
+    font-size: 14px;
+    line-height: 2;
+}
+.note span {
+    display: inline-block;
+    padding: 0 10px;
+    color: white;
+    background-color: #222;
+    font-family: 'Space Mono', monospace;
+    border-radius: 3px;
+}
+.code,
+.note {
+    max-width: 800px;
+    margin: 0 auto 60px;
+}

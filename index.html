@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animate.css">
+    <link rel="stylesheet" href="parallax.css">
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <a href="#start">Start</a>
+            <a href="#scrollToAnchor">Scroll to anchor</a>
+            <a href="#whenInView">When in view</a>
+            <a href="#parallax">Parallax</a>
+            <a href="#utils">Utility functions</a>
+          </div>
+    </header>
+
+    <main>
+        <div id="start" class="start"></div>
+
+
+        <section>
+            <!-- 
+                Scroll to anchor 
+            -->
+            <div class="block" style="min-height: 400px;">
+                <a href="#scrollToAnchor" class="button">Scroll to anchor</a>
+            </div>
+            <div class="space-h"></div>
+            <div id="scrollToAnchor" class="point">
+                <div class="note">
+                    <h2>Scroll to anchor</h2>
+                </div>
+                <div class="code">
+<pre>
+    <code>
+        const scrollToAnchor = () => {
+            
+        <span>
+        /**
+            * Function scrollToAnchor 
+            * @params none
+            * @returns none
+            * 
+            * This function finds hash links on the page and
+            * smoothly scrolls to target if the link is clicked
+            */
+        </span>
+            const links = document.querySelectorAll('a');
+            links.forEach((link) => {
+                
+                const href = link.getAttribute('href');
+                if (href.charAt(0) === '#') {
+                    
+                    link.addEventListener('click', (e) => {
+                        
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        target.scrollIntoView({behavior: "smooth"})
+                    })
+                }
+            })
+        }
+    </code>
+</pre>
+                </div>
+                <div class="note">
+                    <strong>Note:</strong> 
+                    Smooth scrolling is now also available in CSS by adding a rule <span>scroll-behavior: smooth;</span> to <strong>html</strong> element. However it's not implemented in all browsers yet incl. Safari and Safari for IOS.
+                    </div>
+                </div>
+        </section>
+
+
+        <section>
+            <!-- 
+                when in viewport
+            -->
+            <div class="block" style="min-height: 400px;">
+                <a href="#whenInView" class="button">When in viewport</a>
+            </div>
+            <div id="whenInView" class="block point">
+                <div>
+                    <div class="note">
+                        <h2>When in view</h2>
+
+                        <div>
+                            <h3 class="animate animate--fade-in animate--slide-in-bottom delay-300">Fade and slide in from bottom</h3>
+    
+                            <h3 class="animate animate--fade-in animate--slide-in-left delay-600">Fade and slide in from left</h3>
+    
+                            <h3 class="animate animate--fade-in animate--slide-in-right delay-900">Fade and slide in from right</h3>
+    
+                            <h3 class="animate animate--fade-in animate--slide-in-bottom delay-1200">Fade and slide in from bottom</h3>
+                        </div>
+
+                        <p>This function uses util functions:
+                            <a href="#throttle">Throttle</a> and
+                            <a href="#inViewport">In viewport</a>.
+                        </p>
+
+                    </div>
+                    <h4>JS</h4>
+                    <div class="code">
+<pre>
+<code>
+    const animateInViewport = () => {
+        <span>
+            /**
+                * Function animateInViewport 
+                * @params none
+                * @returns none
+                * 
+                * This function checksc all elements with class .animate and adds 
+                * .run class when it's scrolled into viewport.
+                * This is used for CSS animations.
+                */
+        </span>
+        const elements = document.querySelectorAll('.animate');
+        
+        window.addEventListener('scroll', throttle(() => {
+            elements.forEach((element) => {
+    
+                if (inViewport(element)) {
+                    element.classList.add('run');
+                }
+            });
+        }, 100));
+    }
+</code>
+</pre>
+                    </div>
+                    <h4>HTML</h4>
+                    <div class="code">
+<pre>
+<code>
+    &lth3 class="animate animate--fade-in animate--slide-in-bottom delay-300"&gt;Fade and slide in from bottom&lt/h3&gt;
+    
+    &lth3 class="animate animate--fade-in animate--slide-in-left delay-600"&gt;Fade and slide in from left&lt/h3&gt;
+
+    &lth3 class="animate animate--fade-in animate--slide-in-right delay-900"&gt;Fade and slide in from right&lt/h3&gt;
+
+    &lth3 class="animate animate--fade-in animate--slide-in-bottom delay-1200"&gt;Fade and slide in from bottom&lt/h3&gt;
+</code>
+</pre>
+                    </div>
+                    <h4>CSS</h4>
+                    <div class="code">
+<pre>
+    <code>
+        .animate {
+            transition: .6s ease-out;
+        }
+        .delay-300 {
+            transition-delay: .3s;
+        }
+        .delay-600 {
+            transition-delay: .6s;
+        }
+        .delay-900 {
+            transition-delay: .9s;
+        }
+        .delay-1200 {
+            transition-delay: 1.2s;
+        }
+        .animate--fade-in {
+            opacity: 0;
+        }
+        .animate--fade-in.run {
+            opacity: 1;
+        }
+        .animate--slide-in-top {
+            transform: translateY(-30px);
+        }
+        .animate--slide-in-top.run {
+            transform: translateY(0);
+        }
+        .animate--slide-in-bottom {
+            transform: translateY(30px);
+        }
+        .animate--slide-in-bottom.run {
+            transform: translateY(0);
+        }
+        .animate--slide-in-right {
+            transform: translateX(60px);
+        }
+        .animate--slide-in-right.run {
+            transform: translateX(0);
+        }
+        .animate--slide-in-left {
+            transform: translateX(-60px);
+        }
+        .animate--slide-in-left.run {
+            transform: translateX(0);
+        }
+    </code>
+</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+        <!-- Parallax -->
+        <div id="parallax" class="block point">
+            <div>
+                <div class="note">
+                    <h2>Parallax</h2>
+
+                    <div class="block block-border">
+                        <div class="parallax parallax--1" data-speed="30"></div>
+                        <div class="parallax parallax--2" data-speed="-30"></div>
+                    </div>
+
+                    <p>This function uses util functions:
+                        <a href="#throttle">Throttle</a> and
+                        <a href="#inViewport">In viewport</a>.
+                    </p>
+
+                </div>
+                <div class="code">
+<pre>
+<code>
+    const parallax = () => {
+        <span>
+        /**
+        * Function parallax 
+        * @params none
+        * @returns none
+        * 
+        * This function checksc all elements with 
+        * class .parallax and applies parallax effect
+        * basing on speed provided in data-speed 
+        * attribute
+        */
+        </span>
+        const elements = document.querySelectorAll('.parallax');
+
+        window.addEventListener('scroll', throttle(() => {
+            elements.forEach((element) => {
+
+                const speed = parseInt(element.getAttribute('data-speed'));
+                if (inViewport(element, 'top')) {
+
+                    const windowScrollTop = window.pageYOffset;
+                    const elementTop = element.offsetTop;
+
+                    const shiftDistance = (elementTop - windowScrollTop) * (speed / 100);
+
+                    console.log(shiftDistance);
+                    
+                    element.setAttribute('style', `transform: translateY(${shiftDistance}px);`);
+                }
+            });
+        }, 30));
+    }
+</code>
+</pre>
+                </div>
+                <h4>HTML</h4>
+                <div class="code">
+<pre>
+<code>
+    &ltdiv class="parallax parallax--1" data-speed="30"&gt;&lt/div&gt;
+    &ltdiv class="parallax parallax--2" data-speed="-30"&gt;&lt/div&gt;
+</code>
+</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+        <section>
+        <!-- Utils -->
+            <div id="utils" class="block point">
+                <div>
+                    <div class="note">
+                        <h2>Utility functions</h2>
+                        <h3 id="throttle">Throttle</h3>
+                        <p>This function combined with scroll event improves performance by limiting number of calls. <br>
+                            This example is taken from Xigen.co.uk</p>
+                    </div>
+                    <div class="code">
+<pre>
+    <code>
+        const throttle = (func, wait, options) => {
+            <span>
+                /**
+                * throttle function is taken as is from Xigen.co.uk codebase
+                */
+            </span>
+            var timeout, context, args, result;
+            var previous = 0;
+            if (!options) options = {};
+        
+            var later = function () {
+                previous = options.leading === false ? 0 : (Date.now() || new Date().getTime());
+                timeout = null;
+                result = func.apply(context, args);
+                if (!timeout) context = args = null;
+            };
+        
+            var throttled = function () {
+                var now = (Date.now() || new Date().getTime());
+                if (!previous && options.leading === false) previous = now;
+                var remaining = wait - (now - previous);
+                context = this;
+                args = arguments;
+                if (remaining <= 0 || remaining > wait) {
+                    if (timeout) {
+                        clearTimeout(timeout);
+                        timeout = null;
+                    }
+                    previous = now;
+                    result = func.apply(context, args);
+                    if (!timeout) context = args = null;
+                } else if (!timeout && options.trailing !== false) {
+                    timeout = setTimeout(later, remaining);
+                }
+                return result;
+            };
+        
+            throttled.cancel = function () {
+                clearTimeout(timeout);
+                previous = 0;
+                timeout = context = args = null;
+            };
+        
+            return throttled;
+        }
+    </code>
+</pre>
+                    </div>
+                    <h3 id="inViewport">In viewport</h3>
+                    <p>This function checks if the element has been scrolled into viewport</p>
+                    <div class="code">
+<pre>
+    <code>
+        const inViewport = (el) => {
+            const rect = el.getBoundingClientRect();
+            const windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+            const windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+            const vertInView = (rect.bottom <= (windowHeight)) && ((rect.top + rect.height) >= 0);
+            const horInView = (rect.left <= (windowWidth - 30)) && ((rect.left + rect.width) >= 0);
+        
+            return (vertInView && horInView);
+        }
+    </code>
+</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+          
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
